@@ -46,6 +46,37 @@ function CurrencyType(props) {
     
 }
 
+function fromForeignToNaira(curr,amount){
+    const currForm={
+        'd':amount*360,
+        'e':amount*396.93,
+        'p':amount*450,
+        'f':amount*300
+    }
+    return currForm[curr];
+}
+
+function fromNairaToForeign(curr,amount) {
+    const currForm = {
+        'd': amount / 360,
+        'e': amount / 396.93,
+        'p': amount / 450,
+        'f': amount / 300
+    }
+    return currForm[curr];
+    
+}
+
+function convertCurrency(curr,amount,converter){
+    if(Number.isNaN(amount)){
+        return ''
+    }
+    var amount=converter(curr,amount);
+    var amount_float=Math.round(amount*1000)/1000;
+    return amount_float.toString();
+}
+
+
 class CurrencyCalculator extends React.Component{
     constructor(props){
         super(props);
