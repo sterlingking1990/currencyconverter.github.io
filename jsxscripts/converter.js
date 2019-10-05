@@ -44,11 +44,35 @@ class CurrencyCalculator extends React.Component{
     render(){
         var currency_type=this.state.currency_type;
         var amount=this.state.amount;
+        var foreign_currency=this.state.foreign_currency;
 
         var inNaira=currency_type!=='n'? convertCurrency(currency_type,amount,fromForeignToNaira):amount;
         var inForeign=currency_type==='n'? convertCurrency(currency_type,amount,fromNairaToForeign):amount;
 
-        
+        return(
+            <div>
+                <AmountInput 
+                    currency='n'
+                    amount={inNaira}
+                    onAmountChange={this.handleAmountChange}
+                />
+
+                <AmountInput
+                    currency={foreign_currency}
+                    amount={inForeign}
+                    onAmountChange={this.handleAmountChange}
+                />
+
+                <CurrencyType 
+                    value={foreign_currency}
+                    onCurrencyChange={this.handleCurrencyChange}
+                />
+                
+            </div>
+
+        )
+
+
     }
 
 }
