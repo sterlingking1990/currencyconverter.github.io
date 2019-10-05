@@ -38,8 +38,12 @@ class CurrencyCalculator extends React.Component{
         super(props);
 
         this.state={currency_type:'n',foreign_currency:'d',amount:''}
-
+        this.handleAmountChange=this.handleAmountChange.bind(this);
+        this.handleCurrencyChange=this.handleCurrencyChange.bind(this);
+        
     }
+
+
 
     render(){
         var currency_type=this.state.currency_type;
@@ -67,7 +71,7 @@ class CurrencyCalculator extends React.Component{
                     value={foreign_currency}
                     onCurrencyChange={this.handleCurrencyChange}
                 />
-                
+
             </div>
 
         )
