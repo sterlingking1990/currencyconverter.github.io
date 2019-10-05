@@ -33,13 +33,83 @@ const currency_types = {
     'f': "Swiss Franc"
 }
 
+
+
+function fromForeignToNaira(curr,amount){
+    const currForm={
+        'd':amount*360,
+        'e':amount*396.93,
+        'p':amount*450,
+        'f':amount*300
+    }
+    return currForm[curr];
+}
+
+function fromNairaToForeign(curr,amount) {
+    const currForm = {
+        'd': amount / 360,
+        'e': amount / 396.93,
+        'p': amount / 450,
+        'f': amount / 300
+    }
+    return currForm[curr];
+    
+}
+
+function convertCurrency(curr,amount,converter){
+    if(Number.isNaN(amount)){
+        return ''
+    }
+    var amount=converter(curr,amount);
+    var amount_float=Math.round(amount*1000)/1000;
+    return amount_float.toString();
+}
+
+function CurrencyType(props) {
+
+    return (
+        <select value={props.value} onChange={props.onCurrencyChange}>
+            <option value="d">Dollar</option>
+            <option value="e">Euro</option>
+            <option value="p">Pounds</option>
+            <option value="f">Swiss Franc</option>
+        </select>
+    )
+
+}
+
+
 class CurrencyCalculator extends React.Component{
     constructor(props){
         super(props);
 
         this.state={currency_type:'n',foreign_currency:'d',amount:''}
+        this.handleNairaAmountChange=this.handleNairaAmountChange.bind(this);
+        this.handleForeignAmountChange = this.handleForeignAmountChange.bind(this);
+        this.handleCurrencyChange=this.handleCurrencyChange.bind(this);
 
     }
+
+ 
+
+    handleCurrencyChange(event){
+        this.setState({foreign_currency:event.target.value});
+        var new_currency_status=this.state.foreign_currency;
+        this.setState({currency_type: new_currency_status});
+    }
+
+    handleNairaAmountChange(amount){
+        this.setState({currency_type:'n',amount:amount})
+    }
+
+
+    handleForeignAmountChange(amount) {
+        var foreign=this.state.foreign_currency;
+        this.setState({ currency_type:foreign, amount: amount })
+    }
+
+
+
 
     render(){
         var currency_type=this.state.currency_type;
@@ -47,27 +117,27 @@ class CurrencyCalculator extends React.Component{
         var foreign_currency=this.state.foreign_currency;
 
         var inNaira=currency_type!=='n'? convertCurrency(currency_type,amount,fromForeignToNaira):amount;
-        var inForeign=currency_type==='n'? convertCurrency(currency_type,amount,fromNairaToForeign):amount;
+        var inForeign=currency_type==='n'? convertCurrency(foreign_currency,amount,fromNairaToForeign):amount;
 
         return(
             <div>
                 <AmountInput 
                     currency='n'
                     amount={inNaira}
-                    onAmountChange={this.handleAmountChange}
+                    onAmountChange={this.handleNairaAmountChange}
                 />
 
                 <AmountInput
                     currency={foreign_currency}
                     amount={inForeign}
-                    onAmountChange={this.handleAmountChange}
+                    onAmountChange={this.handleForeignAmountChange}
                 />
 
                 <CurrencyType 
                     value={foreign_currency}
                     onCurrencyChange={this.handleCurrencyChange}
                 />
-                
+
             </div>
 
         )
@@ -76,3 +146,33 @@ class CurrencyCalculator extends React.Component{
     }
 
 }
+
+class AmountInput extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleAmount=this.handleAmount.bind(this);
+
+    }
+
+    handleAmount(event){
+        this.props.onAmountChange(event.target.value);
+    }
+
+
+        render(){
+            var currency=this.props.currency;
+            var amount=this.props.amount;
+            
+            return(
+                <fieldset>
+                    <legend>Enter Amount in {currency_types[currency]}</legend>
+                    <input currency={currency} value={amount} onChange={this.handleAmount}/>
+                </fieldset>
+            )
+        }
+    }
+
+var outlook=document.getElementById('app');
+ReactDOM.render(<CurrencyCalculator/>,outlook);
+
+
