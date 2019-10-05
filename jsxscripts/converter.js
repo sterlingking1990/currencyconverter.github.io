@@ -58,7 +58,8 @@ class CurrencyCalculator extends React.Component{
 
     handleCurrencyChange(event){
         this.setState({foreign_currency:event.target.value});
-        this.setState({currency_type: event.target.value })
+        var new_currency_status=this.state.foreign_currency;
+        this.setState({currency_type: new_currency_status});
     }
 
 
@@ -99,3 +100,23 @@ class CurrencyCalculator extends React.Component{
     }
 
 }
+
+class AmountInput extends React.Component{
+    constructor(props){
+        super(props);
+        
+    }
+
+
+        render(){
+            var currency=this.props.currency;
+            var amount=this.props.amount;
+            
+            return(
+                <fieldset>
+                    <legend>Enter Amount in {currency_types[currency]}</legend>
+                    <input value={amount} onChange={this.handleAmount}/>
+                </fieldset>
+            )
+        }
+    }
