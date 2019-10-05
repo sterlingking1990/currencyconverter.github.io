@@ -33,3 +33,12 @@ const currency_types = {
     'f': "Swiss Franc"
 }
 
+class CurrencyCalculator extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state={currency_type:'n',foreign_currency:'d',amount:''}
+
+    }
+    
+}
