@@ -104,7 +104,12 @@ class CurrencyCalculator extends React.Component{
 class AmountInput extends React.Component{
     constructor(props){
         super(props);
-        
+        this.handleAmount=this.handleAmount.bind(this);
+
+    }
+
+    handleAmount(event){
+        this.props.onAmountChange(event.target.value);
     }
 
 
@@ -115,7 +120,7 @@ class AmountInput extends React.Component{
             return(
                 <fieldset>
                     <legend>Enter Amount in {currency_types[currency]}</legend>
-                    <input value={amount} onChange={this.handleAmount}/>
+                    <input currency={currency} value={amount} onChange={this.handleAmount}/>
                 </fieldset>
             )
         }
