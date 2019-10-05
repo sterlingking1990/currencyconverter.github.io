@@ -51,7 +51,8 @@ class CurrencyCalculator extends React.Component{
         super(props);
 
         this.state={currency_type:'n',foreign_currency:'d',amount:''}
-        this.handleAmountChange=this.handleAmountChange.bind(this);
+        this.handleNairaAmountChange=this.handleNairaAmountChange.bind(this);
+        this.handleForeignAmountChange = this.handleForeignAmountChange.bind(this);
         this.handleCurrencyChange=this.handleCurrencyChange.bind(this);
 
     }
@@ -60,6 +61,16 @@ class CurrencyCalculator extends React.Component{
         this.setState({foreign_currency:event.target.value});
         var new_currency_status=this.state.foreign_currency;
         this.setState({currency_type: new_currency_status});
+    }
+
+    handleNairaAmountChange(amount){
+        this.setState({currency_type:'n',amount:amount})
+    }
+
+
+    handleForeignAmountChange(amount) {
+        var foreign=this.state.foreign_currency;
+        this.setState({ currency_type:foreign, amount: amount })
     }
 
 
@@ -78,13 +89,13 @@ class CurrencyCalculator extends React.Component{
                 <AmountInput 
                     currency='n'
                     amount={inNaira}
-                    onAmountChange={this.handleAmountChange}
+                    onAmountChange={this.handleNairaAmountChange}
                 />
 
                 <AmountInput
                     currency={foreign_currency}
                     amount={inForeign}
-                    onAmountChange={this.handleAmountChange}
+                    onAmountChange={this.handleForeignAmountChange}
                 />
 
                 <CurrencyType 
