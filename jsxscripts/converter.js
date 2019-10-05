@@ -40,8 +40,13 @@ class CurrencyCalculator extends React.Component{
         this.state={currency_type:'n',foreign_currency:'d',amount:''}
         this.handleAmountChange=this.handleAmountChange.bind(this);
         this.handleCurrencyChange=this.handleCurrencyChange.bind(this);
-        
+
     }
+
+    handleCurrencyChange(event){
+        this.setState({foreign_currency:event.target.value});
+    }
+
 
 
 
