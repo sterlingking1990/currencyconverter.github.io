@@ -33,6 +33,19 @@ const currency_types = {
     'f': "Swiss Franc"
 }
 
+function CurrencyType(props) {
+
+    return (
+            <select value={props.value} onChange={props.onCurrencyChange}>
+                <option value="d">Dollar</option>
+                <option value="e">Euro</option>
+                <option value="p">Pounds</option>
+                <option value="f">Swiss Franc</option>
+            </select>
+    )
+    
+}
+
 class CurrencyCalculator extends React.Component{
     constructor(props){
         super(props);
@@ -45,6 +58,7 @@ class CurrencyCalculator extends React.Component{
 
     handleCurrencyChange(event){
         this.setState({foreign_currency:event.target.value});
+        this.setState({currency_type: event.target.value })
     }
 
 
@@ -56,7 +70,7 @@ class CurrencyCalculator extends React.Component{
         var foreign_currency=this.state.foreign_currency;
 
         var inNaira=currency_type!=='n'? convertCurrency(currency_type,amount,fromForeignToNaira):amount;
-        var inForeign=currency_type==='n'? convertCurrency(currency_type,amount,fromNairaToForeign):amount;
+        var inForeign=currency_type==='n'? convertCurrency(foreign_currency,amount,fromNairaToForeign):amount;
 
         return(
             <div>
