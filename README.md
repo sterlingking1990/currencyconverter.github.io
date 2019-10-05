@@ -25,3 +25,7 @@ check out http://babeljs.io for more
 3. npm install -g babel-cli@6.24.1
 4. npm install babel-preset-react@6.24.1 babel-preset-env@1.5.2
 
+# Live Server and launching react script
+1. Install live-server on Visual studio
+2. babel jsxscript/script.js --out-file=public/reactscript/app.js --presets=react,env --watch [to wach for and convert changes synchronously]
+3. start live-server using live-server public to automatically launch changes
