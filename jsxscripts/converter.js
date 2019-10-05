@@ -33,18 +33,7 @@ const currency_types = {
     'f': "Swiss Franc"
 }
 
-function CurrencyType(props) {
 
-    return (
-            <select value={props.value} onChange={props.onCurrencyChange}>
-                <option value="d">Dollar</option>
-                <option value="e">Euro</option>
-                <option value="p">Pounds</option>
-                <option value="f">Swiss Franc</option>
-            </select>
-    )
-    
-}
 
 function fromForeignToNaira(curr,amount){
     const currForm={
@@ -76,6 +65,19 @@ function convertCurrency(curr,amount,converter){
     return amount_float.toString();
 }
 
+function CurrencyType(props) {
+
+    return (
+        <select value={props.value} onChange={props.onCurrencyChange}>
+            <option value="d">Dollar</option>
+            <option value="e">Euro</option>
+            <option value="p">Pounds</option>
+            <option value="f">Swiss Franc</option>
+        </select>
+    )
+
+}
+
 
 class CurrencyCalculator extends React.Component{
     constructor(props){
@@ -87,6 +89,8 @@ class CurrencyCalculator extends React.Component{
         this.handleCurrencyChange=this.handleCurrencyChange.bind(this);
 
     }
+
+ 
 
     handleCurrencyChange(event){
         this.setState({foreign_currency:event.target.value});
@@ -167,3 +171,8 @@ class AmountInput extends React.Component{
             )
         }
     }
+
+var outlook=document.getElementById('app');
+ReactDOM.render(<CurrencyCalculator/>,outlook);
+
+
