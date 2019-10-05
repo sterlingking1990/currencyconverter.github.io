@@ -25,5 +25,11 @@
                 -responds to the corresponding change and updates the foreign_currency state
 */
 
-
+const currency_types = {
+    'n': "Naira",
+    'd': "Dollar",
+    'e': "Euro",
+    'p': "Pounds",
+    'f': "Swiss Franc"
+}
 
